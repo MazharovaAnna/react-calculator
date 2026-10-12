@@ -1,0 +1,20 @@
+@use "tokens" as *;
+@use "reset";
+@use "themes";
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: $font-main;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  transition: background-color $t-theme ease, color $t-theme ease;
+}
+
+#root {
+  height: 100%;
+}

@@ -1,0 +1,36 @@
+// ===== Акценты (одинаковые в обеих темах) =====
+$accent-equals: #2f8f7a;
+$accent-equals-hover: #37a88f;
+$accent-equals-active: #267a67;
+$accent-danger: #ff5a5a;
+$accent-orange: #d97757;
+$accent-orange-hover: #e08a6c;
+
+// ===== Свечения (RGB-компоненты для rgba()) =====
+$glow-base: 125, 218, 200;     // бирюзовый — цифры, операторы, функции
+$glow-danger: 217, 128, 192;   // розово-фиолетовый — C, ⌫
+$glow-equals: 47, 143, 122;    // под цвет =
+$glow-accent: 217, 119, 87;    // оранжевый — стрелки конвертера
+$glow-toggle: 91, 141, 217;    // голубой — активные toggle
+
+// ===== Радиусы =====
+$btn-radius-squircle: 26%;
+$btn-radius-round: 50%;
+$tooltip-radius: 14px;
+
+// ===== Шрифты =====
+$font-main: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+            "Segoe UI", system-ui, sans-serif;
+$font-mono: "SF Mono", "Menlo", "Consolas", monospace;
+
+// ===== Тайминги анимаций =====
+$t-glow-in: 80ms;
+$t-glow-out: 300ms;
+$t-tooltip-in: 120ms;
+$t-tooltip-out: 80ms;
+$t-theme: 250ms;
+$tooltip-delay: 150ms;
+
+// ===== Breakpoints =====
+$bp-mobile: 400px;
+$bp-tablet: 700px;

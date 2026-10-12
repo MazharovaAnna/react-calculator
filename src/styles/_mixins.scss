@@ -1,0 +1,61 @@
+@use "tokens" as *;
+
+// ===== Адаптив =====
+@mixin mobile {
+  @media (max-width: $bp-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: $bp-tablet) {
+    @content;
+  }
+}
+
+// ===== Свечение через ::before =====
+@mixin glow($rgb, $inset: 20px) {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -$inset;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba($rgb, 0.45) 0%,
+      rgba($rgb, 0.20) 40%,
+      rgba($rgb, 0.06) 70%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity $t-glow-out ease;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  &.is-pressed::before,
+  &.is-active::before {
+    opacity: 1;
+    transition: opacity $t-glow-in ease-out;
+  }
+}
+
+// ===== Squircle =====
+@mixin squircle {
+  border-radius: $btn-radius-squircle;
+}
+
+// ===== Круглая =====
+@mixin round {
+  border-radius: $btn-radius-round;
+}
+
+// ===== Обрезка текста =====
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
