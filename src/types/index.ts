@@ -1,0 +1,1 @@
+export type Mode = "simple" | "scientific" | "converter";
