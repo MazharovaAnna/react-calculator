@@ -1,0 +1,133 @@
+@use "@/styles/tokens" as *;
+
+.btn {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-btn);
+  color: var(--text);
+  font-family: $font-main;
+  font-size: 28px;
+  font-weight: 400;
+  border-radius: $btn-radius-squircle;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 0.15s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+
+  // Свечение — снаружи, за кнопкой
+  @include glow($glow-base);
+
+  &:hover:not(.btn--disabled) {
+    background: var(--bg-btn-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $accent-equals;
+    outline-offset: 2px;
+  }
+}
+
+.btn__label {
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+  pointer-events: none;
+}
+
+// ===== Варианты — задаём цвет свечения =====
+
+.btn--number,
+.btn--operator,
+.btn--function {
+  @include glow($glow-base);
+}
+
+.btn--danger {
+  color: $accent-danger;
+  @include glow($glow-danger);
+}
+
+.btn--equals {
+  background: $accent-equals;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 32px;
+
+  @include glow($glow-equals);
+
+  &:hover:not(.btn--disabled) {
+    background: $accent-equals-hover;
+  }
+
+  &:active:not(.btn--disabled) {
+    background: $accent-equals-active;
+  }
+}
+
+.btn--accent {
+  background: $accent-orange;
+  color: #ffffff;
+  font-weight: 500;
+
+  @include glow($glow-accent);
+
+  &:hover:not(.btn--disabled) {
+    background: $accent-orange-hover;
+  }
+}
+
+.btn--toggle {
+  @include glow($glow-toggle);
+
+  // Постоянное свечение при active
+  &.btn--active::before {
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+}
+
+// ===== Состояния =====
+
+.btn--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+// ===== Размеры шрифта по вариантам =====
+
+.btn--operator {
+  font-size: 32px;
+  font-weight: 300;
+}
+
+.btn--function {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+// ===== Адаптив =====
+@include mobile {
+  .btn {
+    font-size: 22px;
+  }
+
+  .btn--operator {
+    font-size: 26px;
+  }
+
+  .btn--function {
+    font-size: 16px;
+  }
+
+  .btn--equals {
+    font-size: 26px;
+  }
+}

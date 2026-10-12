@@ -15,6 +15,8 @@
 
 // ===== Свечение через ::before =====
 @mixin glow($rgb, $inset: 20px) {
+  --glow-rgb: #{$rgb};
+
   position: relative;
   isolation: isolate;
 
@@ -25,9 +27,9 @@
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      rgba($rgb, 0.45) 0%,
-      rgba($rgb, 0.20) 40%,
-      rgba($rgb, 0.06) 70%,
+      rgba(var(--glow-rgb) / 0.45) 0%,
+      rgba(var(--glow-rgb) / 0.20) 40%,
+      rgba(var(--glow-rgb) / 0.06) 70%,
       transparent 100%
     );
     opacity: 0;

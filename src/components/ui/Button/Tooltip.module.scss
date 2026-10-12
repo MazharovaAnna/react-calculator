@@ -1,0 +1,80 @@
+.tooltip {
+  position: absolute;
+  background: var(--bg-tooltip);
+  color: var(--text-tooltip);
+  padding: 10px 16px;
+  border-radius: $tooltip-radius;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: var(--shadow-tooltip);
+  animation: tooltip-in $t-tooltip-in ease-out;
+
+  // Хвостик-квадрат, общий
+  &::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--bg-tooltip);
+    transform: rotate(45deg);
+    border-radius: 2px;
+  }
+}
+
+// ===== Снизу-слева (тултип левее и ниже кнопки) =====
+.tooltip--bottom-left {
+  top: calc(100% + 10px);
+  right: calc(100% - 20px);
+
+  &::after {
+    top: -5px;
+    right: 22px;
+  }
+}
+
+// ===== Снизу-справа (тултип правее и ниже кнопки) =====
+.tooltip--bottom-right {
+  top: calc(100% + 10px);
+  left: calc(100% - 20px);
+
+  &::after {
+    top: -5px;
+    left: 22px;
+  }
+}
+
+// ===== Сверху-слева =====
+.tooltip--top-left {
+  bottom: calc(100% + 10px);
+  right: calc(100% - 20px);
+
+  &::after {
+    bottom: -5px;
+    right: 22px;
+  }
+}
+
+// ===== Сверху-справа =====
+.tooltip--top-right {
+  bottom: calc(100% + 10px);
+  left: calc(100% - 20px);
+
+  &::after {
+    bottom: -5px;
+    left: 22px;
+  }
+}
+
+@keyframes tooltip-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
