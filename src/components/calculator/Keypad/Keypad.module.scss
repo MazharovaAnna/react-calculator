@@ -1,0 +1,24 @@
+@use "@/styles/tokens" as *;
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+// Модификатор для инженерного режима — плотнее
+.keypad--scientific {
+  gap: 8px;
+}
+
+// Модификатор для конвертера — крупнее
+.keypad--converter {
+  gap: 12px;
+}
+
+@include mobile {
+  .keypad {
+    gap: 8px;
+  }
+}

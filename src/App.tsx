@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/Button";
+import { Keypad } from "@/components/calculator/Keypad";
+import { simpleKeys } from "@/constants/keypads";
 
 export default function App() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [activeToggle, setActiveToggle] = useState(false);
 
   document.body.className = `theme-${theme}`;
 
@@ -11,63 +11,28 @@ export default function App() {
     <div
       style={{
         minHeight: "100vh",
-        padding: 40,
+        padding: 20,
         display: "flex",
         flexDirection: "column",
-        gap: 24,
+        gap: 16,
         background: "var(--bg)",
       }}
     >
-      <div style={{ display: "flex", gap: 12 }}>
-        <button
-          onClick={() => setTheme((t) => (t === "light" ? "dark" : "light"))}
-          style={{
-            padding: "8px 16px",
-            background: "var(--bg-btn)",
-            color: "var(--text)",
-            borderRadius: 8,
-          }}
-        >
-          Тема: {theme}
-        </button>
-      </div>
-
-      <div
+      <button
+        onClick={() => setTheme((t) => (t === "light" ? "dark" : "light"))}
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 80px)",
-          gap: 12,
+          alignSelf: "flex-start",
+          padding: "8px 16px",
+          background: "var(--bg-btn)",
+          color: "var(--text)",
+          borderRadius: 8,
         }}
       >
-        <Button variant="number" tooltip="цифра 7" hotkey="7" onPress={() => console.log("7")}>
-          7
-        </Button>
-        <Button variant="operator" tooltip="умножение" hotkey="*" onPress={() => console.log("*")}>
-          ×
-        </Button>
-        <Button variant="function" tooltip="синус" onPress={() => console.log("sin")}>
-          sin
-        </Button>
-        <Button variant="danger" tooltip="стереть" hotkey="Backspace" onPress={() => console.log("⌫")}>
-          ⌫
-        </Button>
-        <Button variant="danger" tooltip="Очистить" hotkey="Escape" onPress={() => console.log("C")}>
-          C
-        </Button>
-        <Button variant="equals" tooltip="результат" hotkey="Enter" onPress={() => console.log("=")}>
-          =
-        </Button>
-        <Button variant="accent" tooltip="поменять местами" onPress={() => console.log("↓")}>
-          ↓
-        </Button>
-        <Button
-          variant="toggle"
-          active={activeToggle}
-          tooltip="Другие функции"
-          onPress={() => setActiveToggle((v) => !v)}
-        >
-          ⇄
-        </Button>
+        Тема: {theme}
+      </button>
+
+      <div style={{ maxWidth: 400, margin: "auto", width: "100%" }}>
+        <Keypad keys={simpleKeys} />
       </div>
     </div>
   );

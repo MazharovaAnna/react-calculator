@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import path from "node:path";
@@ -13,10 +14,14 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `
-   @use "@/styles/tokens" as *;
-  @use "@/styles/mixins" as *;
-`,
+          @use "@/styles/tokens" as *;
+          @use "@/styles/mixins" as *;
+        `,
       },
     },
+  },
+  test: {
+    environment: "node",              // пока парсер — без DOM
+    globals: true,                    // describe, it, expect — глобально
   },
 });

@@ -2,14 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./Button.module.scss";
 import { Tooltip, type TooltipPlacement } from "./Tooltip";
 
-export type ButtonVariant =
-  | "number"
-  | "operator"
-  | "function"
-  | "danger"
-  | "equals"
-  | "accent"
-  | "toggle";
+import type { ButtonVariant } from "@/types";
+
 
 type Props = {
   children: React.ReactNode;
