@@ -1,0 +1,23 @@
+@use "@/styles/tokens" as *;
+
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.fields {
+  flex-shrink: 0;
+  margin-bottom: 16px;
+}
+
+.keypadWrap {
+  flex-shrink: 0;
+}
+
+@include mobile {
+  .keypadWrap {
+    margin-top: 8px;
+  }
+}
