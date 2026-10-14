@@ -127,3 +127,15 @@ describe("evaluate — ошибки", () => {
     expect(evaluate("foo(2)")).toBeNull();
   });
 });
+
+describe("evaluate — степень и куб", () => {
+  it("степень", () => {
+    expect(evaluate("2^3")).toBe(8);
+    expect(evaluate("2^3^2")).toBe(512);
+  });
+
+  it("куб", () => {
+    expect(evaluate("5³")).toBe(125);
+    expect(evaluate("2³")).toBe(8);
+  });
+});

@@ -32,6 +32,7 @@ const OPERATOR_DISPLAY: Record<string, string> = {
   "/": "÷",
   "-": "−",
   "+": "+",
+  "^": "^",
 };
 
 export function useCalculator() {
@@ -106,31 +107,27 @@ export function useCalculator() {
   }, [justEvaluated]);
 
   // ===== Оператор =====
-  const appendOperator = useCallback(
-    (op: "*" | "/" | "-" | "+") => {
-      setJustEvaluated(false);
-      setExpression((prev) => {
-        const last = prev.slice(-1);
-        const display = OPERATOR_DISPLAY[op] ?? op;
-        const prevDisplay = OPERATOR_DISPLAY[last] ?? last;
+  const appendOperator = useCallback((op: "*" | "/" | "-" | "+" | "^") => {
+    setJustEvaluated(false);
+    setExpression((prev) => {
+      const last = prev.slice(-1);
+      const display = OPERATOR_DISPLAY[op] ?? op;
 
-        // Если уже оператор в конце — заменяем
-        if ("+-*/".includes(last) || "×÷−".includes(last)) {
-          // Не даём ставить оператор сразу после "("
-          if (prev.length === 1) return prev;
-          const beforeLast = prev.slice(0, -1);
-          if (beforeLast.slice(-1) === "(") return prev;
-          return beforeLast + display;
-        }
+      // Если уже оператор в конце — заменяем
+      if ("+-*/^".includes(last) || "×÷−".includes(last)) {
+        // Не даём ставить оператор сразу после "("
+        if (prev.length === 1) return prev;
+        const beforeLast = prev.slice(0, -1);
+        if (beforeLast.slice(-1) === "(") return prev;
+        return beforeLast + display;
+      }
 
-        // Нельзя после "("
-        if (last === "(") return prev;
+      // Нельзя после "("
+      if (last === "(") return prev;
 
-        return prev + display;
-      });
-    },
-    [],
-  );
+      return prev + display;
+    });
+  }, []);
 
   // ===== Скобки =====
   const appendParen = useCallback(() => {
@@ -155,38 +152,32 @@ export function useCalculator() {
   }, []);
 
   // ===== Функция (sin, cos, log и т.д.) =====
-  const appendFunction = useCallback(
-    (fn: string) => {
-      setJustEvaluated(false);
-      setExpression((prev) => {
-        const last = prev.slice(-1);
-        // Неявное умножение: 5sin( → 5×sin(
-        if (/\d/.test(last) || last === ")" || last === "π" || last === "e") {
-          return (prev === "0" ? "" : prev + "×") + `${fn}(`;
-        }
-        return (prev === "0" ? "" : prev) + `${fn}(`;
-      });
-    },
-    [],
-  );
+  const appendFunction = useCallback((fn: string) => {
+    setJustEvaluated(false);
+    setExpression((prev) => {
+      const last = prev.slice(-1);
+      // Неявное умножение: 5sin( → 5×sin(
+      if (/\d/.test(last) || last === ")" || last === "π" || last === "e") {
+        return (prev === "0" ? "" : prev + "×") + `${fn}(`;
+      }
+      return (prev === "0" ? "" : prev) + `${fn}(`;
+    });
+  }, []);
 
   // ===== Константа (π, e) =====
-  const appendConstant = useCallback(
-    (c: string) => {
-      setJustEvaluated(false);
-      setExpression((prev) => {
-        const last = prev.slice(-1);
-        if (/\d/.test(last) || last === ")" || last === "π" || last === "e") {
-          return (prev === "0" ? "" : prev + "×") + c;
-        }
-        return (prev === "0" ? "" : prev) + c;
-      });
-    },
-    [],
-  );
+  const appendConstant = useCallback((c: string) => {
+    setJustEvaluated(false);
+    setExpression((prev) => {
+      const last = prev.slice(-1);
+      if (/\d/.test(last) || last === ")" || last === "π" || last === "e") {
+        return (prev === "0" ? "" : prev + "×") + c;
+      }
+      return (prev === "0" ? "" : prev) + c;
+    });
+  }, []);
 
   // ===== Постфикс (! — факториал, ² — квадрат) =====
-  const appendPostfix = useCallback((suffix: "!" | "²") => {
+  const appendPostfix = useCallback((suffix: "!" | "²" | "³") => {
     setExpression((prev) => {
       const last = prev.slice(-1);
       // Применяем только после числа или ")"
@@ -288,10 +279,10 @@ export function useCalculator() {
 
       // Пишем в историю
       setHistory((h) =>
-        [
-          { expr, result: formatted, time: Date.now() },
-          ...h,
-        ].slice(0, HISTORY_LIMIT),
+        [{ expr, result: formatted, time: Date.now() }, ...h].slice(
+          0,
+          HISTORY_LIMIT,
+        ),
       );
 
       setJustEvaluated(true);
