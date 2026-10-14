@@ -11,6 +11,7 @@ type Props = {
   tooltip?: string;
   hotkey?: string;
   disabled?: boolean;
+  round?: boolean; 
   onPress?: () => void;
 };
 
@@ -24,6 +25,7 @@ export function Button({
   tooltip,
   hotkey,
   disabled = false,
+  round = false,
   onPress,
 }: Props) {
   const [pressed, setPressed] = useState(false);
@@ -118,6 +120,7 @@ export function Button({
   const className = [
     styles.btn,
     styles[`btn--${variant}`],
+    round && styles["btn--round"], 
     active && styles["is-active"],
     pressed && styles["is-pressed"],
     disabled && styles["btn--disabled"],
