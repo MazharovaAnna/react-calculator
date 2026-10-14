@@ -24,11 +24,16 @@ export function evaluateNode(node: Node, angleMode: AngleMode): number | null {
       if (l === null || r === null) return null;
 
       switch (node.op) {
-        case "+": return l + r;
-        case "-": return l - r;
-        case "*": return l * r;
-        case "/": return r === 0 ? null : l / r;
-        case "^": return Math.pow(l, r);
+        case "+":
+          return l + r;
+        case "-":
+          return l - r;
+        case "*":
+          return l * r;
+        case "/":
+          return r === 0 ? null : l / r;
+        case "^":
+          return Math.pow(l, r);
       }
       return null;
     }
@@ -44,6 +49,12 @@ export function evaluateNode(node: Node, angleMode: AngleMode): number | null {
       const v = evaluateNode(node.arg, angleMode);
       if (v === null) return null;
       return v * v;
+    }
+
+    case "cube": {
+      const v = evaluateNode(node.arg, angleMode);
+      if (v === null) return null;
+      return v * v * v;
     }
 
     case "call": {

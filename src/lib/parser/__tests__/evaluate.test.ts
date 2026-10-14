@@ -83,6 +83,12 @@ describe("evaluate — функции", () => {
     expect(evaluate("5²")).toBe(25);
   });
 
+  it("куб", () => {
+    expect(evaluate("5³")).toBe(125);
+    expect(evaluate("2³")).toBe(8);
+    expect(evaluate("(2+3)³")).toBe(125);
+  });
+
   it("abs", () => {
     expect(evaluate("abs(-7)")).toBe(7);
   });
@@ -106,16 +112,16 @@ describe("evaluate — ошибки", () => {
   });
 
   it("двойной унарный знак допустим", () => {
-  expect(evaluate("2++3")).toBe(5);
-  expect(evaluate("--5")).toBe(5);
-  expect(evaluate("-(-5)")).toBe(5);
-});
+    expect(evaluate("2++3")).toBe(5);
+    expect(evaluate("--5")).toBe(5);
+    expect(evaluate("-(-5)")).toBe(5);
+  });
 
-it("синтаксические ошибки → null", () => {
-  expect(evaluate("2+")).toBeNull();
-  expect(evaluate("(2+3")).toBeNull();
-  expect(evaluate("2 3")).toBeNull();
-});
+  it("синтаксические ошибки → null", () => {
+    expect(evaluate("2+")).toBeNull();
+    expect(evaluate("(2+3")).toBeNull();
+    expect(evaluate("2 3")).toBeNull();
+  });
 
   it("неизвестная функция → null", () => {
     expect(evaluate("foo(2)")).toBeNull();

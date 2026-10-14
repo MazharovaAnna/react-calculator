@@ -8,7 +8,8 @@ export type Node =
   | { kind: "unary"; op: "-" | "+"; arg: Node }
   | { kind: "binary"; op: "+" | "-" | "*" | "/" | "^"; left: Node; right: Node }
   | { kind: "factorial"; arg: Node }
-  | { kind: "square"; arg: Node };
+  | { kind: "square"; arg: Node }
+  | { kind: "cube"; arg: Node } 
 
 export class Parser {
   private tokens: Token[];
@@ -100,26 +101,28 @@ export class Parser {
 
   // postfix = primary ("!" | "²" | "^" unary)*
   private parsePostfix(): Node {
-    let node = this.parsePrimary();
-    while (true) {
-      const t = this.peek();
-      if (t?.type === "factorial") {
-        this.next();
-        node = { kind: "factorial", arg: node };
-      } else if (t?.type === "square") {
-        this.next();
-        node = { kind: "square", arg: node };
-      } else if (t?.type === "power") {
-        this.next();
-        // ^ право-ассоциативный: 2^3^2 = 2^(3^2)
-        const right = this.parseUnary();
-        node = { kind: "binary", op: "^", left: node, right };
-      } else {
-        break;
-      }
+  let node = this.parsePrimary();
+  while (true) {
+    const t = this.peek();
+    if (t?.type === "factorial") {
+      this.next();
+      node = { kind: "factorial", arg: node };
+    } else if (t?.type === "square") {
+      this.next();
+      node = { kind: "square", arg: node };
+    } else if (t?.type === "cube") {
+      this.next();
+      node = { kind: "cube", arg: node };
+    } else if (t?.type === "power") {
+      this.next();
+      const right = this.parseUnary();
+      node = { kind: "binary", op: "^", left: node, right };
+    } else {
+      break;
     }
-    return node;
   }
+  return node;
+}
 
   // primary = number | ident ("(" args ")")? | "(" expression ")"
   private parsePrimary(): Node {

@@ -5,10 +5,10 @@ import type { Token } from "./types";
 const NORMALIZE_MAP: Record<string, string> = {
   "×": "*",
   "÷": "/",
-  "−": "-",   // U+2212 — «минус» с клавиатуры калькулятора
+  "−": "-",
   "√": "sqrt",
   "∛": "cbrt",
-  "π": "pi",
+  π: "pi",
 };
 
 function normalize(input: string): string {
@@ -58,16 +58,50 @@ export function tokenize(input: string): Token[] {
 
     // Одиночные символы
     switch (ch) {
-      case "+": tokens.push({ type: "plus" }); i++; break;
-      case "-": tokens.push({ type: "minus" }); i++; break;
-      case "*": tokens.push({ type: "multiply" }); i++; break;
-      case "/": tokens.push({ type: "divide" }); i++; break;
-      case "^": tokens.push({ type: "power" }); i++; break;
-      case "(": tokens.push({ type: "lparen" }); i++; break;
-      case ")": tokens.push({ type: "rparen" }); i++; break;
-      case ",": tokens.push({ type: "comma" }); i++; break;
-      case "!": tokens.push({ type: "factorial" }); i++; break;
-      case "²": tokens.push({ type: "square" }); i++; break;
+      case "+":
+        tokens.push({ type: "plus" });
+        i++;
+        break;
+      case "-":
+        tokens.push({ type: "minus" });
+        i++;
+        break;
+      case "*":
+        tokens.push({ type: "multiply" });
+        i++;
+        break;
+      case "/":
+        tokens.push({ type: "divide" });
+        i++;
+        break;
+      case "^":
+        tokens.push({ type: "power" });
+        i++;
+        break;
+      case "(":
+        tokens.push({ type: "lparen" });
+        i++;
+        break;
+      case ")":
+        tokens.push({ type: "rparen" });
+        i++;
+        break;
+      case ",":
+        tokens.push({ type: "comma" });
+        i++;
+        break;
+      case "!":
+        tokens.push({ type: "factorial" });
+        i++;
+        break;
+      case "²":
+        tokens.push({ type: "square" });
+        i++;
+        break;
+      case "³":
+        tokens.push({ type: "cube" });
+        i++;
+        break;
       default:
         throw new Error(`Unexpected character: ${ch}`);
     }
