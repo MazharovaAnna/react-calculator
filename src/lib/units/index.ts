@@ -24,3 +24,4 @@ export function getCategory(id: string): AnyCategory | undefined {
 // Экспорт типов и утилит
 export type { AnyCategory, Category, NonLinearCategory, Unit } from "./types";
 export { isLinear } from "./types";
+export { convert } from "./convert";   // ← ЭТОЙ СТРОКИ НЕ ХВАТАЛО

@@ -1,5 +1,4 @@
-import type { AnyCategory, Unit } from "./types";
-
+import type { AnyCategory } from "./types";
 /**
  * Конвертирует значение из одной единицы в другую.
  *
