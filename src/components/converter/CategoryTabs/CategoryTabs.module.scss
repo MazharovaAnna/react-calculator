@@ -1,0 +1,48 @@
+@use "@/styles/tokens" as *;
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 4px 0;
+  margin-bottom: 16px;
+
+  // Скрываем скроллбар, но оставляем возможность скролла
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tab {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: var(--bg-icon-hover);
+    color: var(--text);
+  }
+}
+
+.active {
+  background: var(--bg-btn-hover);
+  color: var(--text);
+  font-weight: 500;
+
+  &:hover {
+    background: var(--bg-btn-active);
+  }
+}
