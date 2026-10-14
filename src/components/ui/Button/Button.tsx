@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import type { ButtonVariant } from "@/types";
 import styles from "./Button.module.scss";
 import { Tooltip, type TooltipPlacement } from "./Tooltip";
-
-import type { ButtonVariant } from "@/types";
 
 
 type Props = {

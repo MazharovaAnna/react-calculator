@@ -17,6 +17,7 @@ export function Keypad({ keys, className }: Props) {
           key={key.id}
           variant={key.variant}
           active={key.active}
+          disabled={key.disabled}
           tooltip={key.tooltip}
           hotkey={key.hotkey}
           onPress={key.onPress}

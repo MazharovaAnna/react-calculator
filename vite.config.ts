@@ -20,8 +20,4 @@ export default defineConfig({
       },
     },
   },
-  test: {
-    environment: "node",              // пока парсер — без DOM
-    globals: true,                    // describe, it, expect — глобально
-  },
 });
