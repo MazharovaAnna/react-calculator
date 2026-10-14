@@ -1,11 +1,36 @@
+import { useState } from "react";
 import { useCalculatorContext } from "@/context";
 import { Keypad } from "@/components/calculator/Keypad";
-import { simpleKeys } from "@/constants/keypads";
+import {
+  simpleKeys,
+  scientificMainKeys,
+  scientificAltKeys,
+} from "@/constants/keypads";
 import styles from "./CalculatorPage.module.scss";
 
-export function CalculatorPage() {
+type Props = {
+  mode?: "simple" | "scientific";
+};
+
+export function CalculatorPage({ mode = "simple" }: Props) {
   const calc = useCalculatorContext();
-  const keys = simpleKeys(calc);
+  const [alt, setAlt] = useState(false);
+
+  // Собираем раскладку в зависимости от режима
+  const keys =
+    mode === "simple"
+      ? simpleKeys(calc)
+      : alt
+      ? scientificAltKeys(calc, {
+          angleMode: calc.angleMode,
+          onToggleAngleMode: calc.toggleAngleMode,
+          onToggleAlt: () => setAlt((v) => !v),
+        })
+      : scientificMainKeys(calc, {
+          angleMode: calc.angleMode,
+          onToggleAngleMode: calc.toggleAngleMode,
+          onToggleAlt: () => setAlt((v) => !v),
+        });
 
   return (
     <div className={styles.page}>

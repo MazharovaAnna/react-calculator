@@ -10,8 +10,8 @@ export default function App() {
         <CalculatorProvider>
           <Routes>
             <Route element={<AppLayout />}>
-              <Route path="/" element={<CalculatorPage />} />
-              <Route path="/scientific" element={<CalculatorPage />} />
+              <Route path="/" element={<CalculatorPage mode="simple" />} />
+              <Route path="/scientific" element={<CalculatorPage mode="scientific" />} />
               <Route path="/converter" element={<ConverterPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
