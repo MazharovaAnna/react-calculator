@@ -1,0 +1,46 @@
+@use "@/styles/tokens" as *;
+
+.selectWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 24px 8px 0;
+  cursor: pointer;
+  outline: none;
+
+  // Убираем встроенную стрелку в Firefox
+  &::-moz-focus-inner {
+    border: none;
+  }
+
+  // Стилизуем option (работает не во всех браузерах)
+  option {
+    background: var(--bg-panel);
+    color: var(--text);
+  }
+}
+
+.arrow {
+  position: absolute;
+  right: 0;
+  pointer-events: none;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  transition: transform 0.15s ease;
+}
+
+.selectWrap:hover .arrow {
+  color: $accent-equals;
+}
