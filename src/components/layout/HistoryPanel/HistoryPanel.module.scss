@@ -1,0 +1,98 @@
+@use "@/styles/tokens" as *;
+
+.panel {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-panel);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  z-index: 10;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+
+  &:hover {
+    background: var(--bg-icon-hover);
+  }
+}
+
+.empty {
+  color: var(--text-muted);
+  font-size: 15px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 4px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 10px 12px;
+  background: var(--bg-btn);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: var(--bg-btn-hover);
+  }
+}
+
+.expr {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.result {
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.clearBtn {
+  margin-top: 16px;
+  background: transparent;
+  border: none;
+  color: $accent-danger;
+  font-size: 16px;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 90, 90, 0.1);
+  }
+}
