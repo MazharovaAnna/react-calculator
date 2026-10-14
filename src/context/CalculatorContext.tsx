@@ -16,8 +16,6 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
 
 export function useCalculatorContext(): CalculatorValue {
   const ctx = useContext(CalculatorContext);
-  if (!ctx) {
-    throw new Error("useCalculatorContext must be used within CalculatorProvider");
-  }
+  if (!ctx) throw new Error("useCalculatorContext must be used within CalculatorProvider");
   return ctx;
 }

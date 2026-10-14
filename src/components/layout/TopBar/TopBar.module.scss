@@ -6,6 +6,7 @@
   align-items: center;
   padding: 8px 4px 0;
   margin-bottom: 8px;
+  flex-shrink: 0;
 }
 
 .right {
@@ -22,10 +23,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease;
   border: none;
+  transition: background 0.15s ease;
 
   &:hover {
     background: var(--bg-icon-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $accent-equals;
+    outline-offset: 2px;
   }
 }

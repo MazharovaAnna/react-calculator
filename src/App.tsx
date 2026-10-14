@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { CalculatorProvider, ThemeProvider } from "@/context";
+import { AppLayout } from "@/layouts/AppLayout";
 import { CalculatorPage, ConverterPage } from "@/pages";
 
 export default function App() {
@@ -8,10 +9,12 @@ export default function App() {
       <ThemeProvider>
         <CalculatorProvider>
           <Routes>
-            <Route path="/" element={<CalculatorPage />} />
-            <Route path="/scientific" element={<CalculatorPage />} />
-            <Route path="/converter" element={<ConverterPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route element={<AppLayout />}>
+              <Route path="/" element={<CalculatorPage />} />
+              <Route path="/scientific" element={<CalculatorPage />} />
+              <Route path="/converter" element={<ConverterPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
           </Routes>
         </CalculatorProvider>
       </ThemeProvider>

@@ -3,7 +3,7 @@ import type { useCalculator } from "@/hooks/useCalculator";
 
 type Calc = ReturnType<typeof useCalculator>;
 
-// ===== Обычный режим (5 рядов) =====
+// ===== Простой режим — 5×4 =====
 export function simpleKeys(c: Calc): KeyDef[] {
   return [
     { id: "clear",     label: "C",  variant: "danger",   tooltip: "Очистить",  hotkey: "Escape",     onPress: c.clear },
@@ -26,81 +26,9 @@ export function simpleKeys(c: Calc): KeyDef[] {
     { id: "3", label: "3", variant: "number", hotkey: "3", onPress: () => c.appendNumber("3") },
     { id: "add", label: "+", variant: "operator", tooltip: "сложение", hotkey: "+", onPress: () => c.appendOperator("+") },
 
-    { id: "paren",   label: "( )", variant: "number", tooltip: "скобки",    hotkey: "(",  onPress: c.appendParen },
+    { id: "paren",   label: "( )", variant: "number", tooltip: "скобки",   hotkey: "(",  onPress: c.appendParen },
     { id: "0",       label: "0",   variant: "number",                        hotkey: "0",  onPress: () => c.appendNumber("0") },
-    { id: "decimal", label: ",",   variant: "number", tooltip: "запятая",   hotkey: ".",  onPress: c.appendDecimal },
+    { id: "decimal", label: ",",   variant: "number", tooltip: "запятая",  hotkey: ".",  onPress: c.appendDecimal },
     { id: "equals",  label: "=",   variant: "equals", tooltip: "результат", hotkey: "Enter", onPress: c.calculate },
-  ];
-}
-
-// ===== Научный, основной набор (9 рядов) =====
-export function scientificMainKeys(c: Calc, extras: {
-  angleMode: "deg" | "rad";
-  onToggleAngleMode: () => void;
-  onToggleAlt: () => void;
-}): KeyDef[] {
-  return [
-    // Ряд 1 — переключатели
-    { id: "alt-toggle", label: "⇄", variant: "toggle", active: false, tooltip: "Другие функции", onPress: extras.onToggleAlt },
-    { id: "angle", label: extras.angleMode === "deg" ? "Deg" : "Rad", variant: "toggle", active: true, tooltip: "Режим угла", onPress: extras.onToggleAngleMode },
-    { id: "sqrt", label: "√", variant: "function", tooltip: "корень", onPress: () => c.appendFunction("sqrt") },
-    { id: "abs", label: "|x|", variant: "function", tooltip: "модуль", onPress: () => c.appendFunction("abs") },
-
-    // Ряд 2
-    { id: "sin", label: "sin", variant: "function", tooltip: "синус", onPress: () => c.appendFunction("sin") },
-    { id: "cos", label: "cos", variant: "function", tooltip: "косинус", onPress: () => c.appendFunction("cos") },
-    { id: "tan", label: "tan", variant: "function", tooltip: "тангенс", onPress: () => c.appendFunction("tan") },
-    { id: "pi", label: "π", variant: "function", tooltip: "число пи", onPress: () => c.appendConstant("π") },
-
-    // Ряд 3
-    { id: "ln", label: "ln", variant: "function", tooltip: "натуральный логарифм", onPress: () => c.appendFunction("ln") },
-    { id: "log", label: "log", variant: "function", tooltip: "десятичный логарифм", onPress: () => c.appendFunction("log") },
-    { id: "inv", label: "1/x", variant: "function", tooltip: "обратное число", onPress: () => c.appendFunction("inv") },
-    { id: "e", label: "e", variant: "function", tooltip: "число e", onPress: () => c.appendConstant("e") },
-
-    // Ряд 4
-    { id: "exp", label: "eˣ", variant: "function", tooltip: "экспонента", onPress: () => c.appendFunction("exp") },
-    { id: "sq", label: "x²", variant: "function", tooltip: "квадрат", onPress: () => c.appendPostfix("²") },
-    { id: "pow", label: "xʸ", variant: "function", tooltip: "степень", onPress: () => c.appendOperator("^" as never) },
-    { id: "sign", label: "+/−", variant: "function", tooltip: "сменить знак", onPress: c.toggleSign },
-
-    // Ряды 5–9 — базовые (переиспользуем нижние 5 рядов обычной раскладки)
-    ...simpleKeys(c).slice(4),
-  ];
-}
-
-// ===== Научный, альтернативный набор (гиперболические) =====
-export function scientificAltKeys(c: Calc, extras: {
-  angleMode: "deg" | "rad";
-  onToggleAngleMode: () => void;
-  onToggleAlt: () => void;
-}): KeyDef[] {
-  return [
-    // Ряд 1
-    { id: "alt-toggle", label: "⇄", variant: "toggle", active: true, tooltip: "Основные функции", onPress: extras.onToggleAlt },
-    { id: "angle", label: extras.angleMode === "deg" ? "Deg" : "Rad", variant: "toggle", active: true, tooltip: "Режим угла", onPress: extras.onToggleAngleMode },
-    { id: "cbrt", label: "∛", variant: "function", tooltip: "кубический корень", onPress: () => c.appendFunction("cbrt") },
-    { id: "pow2", label: "2ˣ", variant: "function", tooltip: "два в степени", onPress: () => c.appendFunction("exp") },
-
-    // Ряд 2
-    { id: "atan", label: "tan⁻¹", variant: "function", tooltip: "арктангенс", onPress: () => c.appendFunction("atan") },
-    { id: "empty-1", label: "", variant: "function", onPress: () => {} },
-    { id: "cube", label: "x³", variant: "function", tooltip: "куб", onPress: () => c.appendPostfix("²") }, // временно ², потом сделаем ³
-    { id: "empty-2", label: "", variant: "function", onPress: () => {} },
-
-    // Ряд 3 — гиперболические
-    { id: "sinh", label: "sinh", variant: "function", tooltip: "гиперболический синус", onPress: () => c.appendFunction("sinh") },
-    { id: "cosh", label: "cosh", variant: "function", tooltip: "гиперболический косинус", onPress: () => c.appendFunction("cosh") },
-    { id: "tanh", label: "tanh", variant: "function", tooltip: "гиперболический тангенс", onPress: () => c.appendFunction("tanh") },
-    { id: "fact", label: "x!", variant: "function", tooltip: "факториал", onPress: () => c.appendPostfix("!") },
-
-    // Ряд 4 — обратные гиперболические
-    { id: "asinh", label: "sinh⁻¹", variant: "function", tooltip: "обратный гиперболический синус", onPress: () => c.appendFunction("asinh") },
-    { id: "acosh", label: "cosh⁻¹", variant: "function", tooltip: "обратный гиперболический косинус", onPress: () => c.appendFunction("acosh") },
-    { id: "atanh", label: "tanh⁻¹", variant: "function", tooltip: "обратный гиперболический тангенс", onPress: () => c.appendFunction("atanh") },
-    { id: "sign-alt", label: "+/−", variant: "function", tooltip: "сменить знак", onPress: c.toggleSign },
-
-    // Ряды 5–9 — базовые
-    ...simpleKeys(c).slice(4),
   ];
 }

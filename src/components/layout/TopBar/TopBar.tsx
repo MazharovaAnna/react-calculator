@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useThemeContext } from "@/context";
 import styles from "./TopBar.module.scss";
 
@@ -20,6 +20,7 @@ export function TopBar({ onOpenHistory }: Props) {
         className={styles.iconBtn}
         onClick={onOpenHistory}
         aria-label="История"
+        type="button"
       >
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
              stroke="currentColor" strokeWidth="1.8"
@@ -31,10 +32,12 @@ export function TopBar({ onOpenHistory }: Props) {
       </button>
 
       <div className={styles.right}>
+        {/* Тема */}
         <button
           className={styles.iconBtn}
           onClick={toggleTheme}
           aria-label="Переключить тему"
+          type="button"
         >
           {theme === "light" ? (
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
@@ -52,14 +55,16 @@ export function TopBar({ onOpenHistory }: Props) {
           )}
         </button>
 
+        {/* Simple ↔ Scientific */}
         {!isConverter && (
           <button
             className={styles.iconBtn}
             onClick={() => navigate(isScientific ? "/" : "/scientific")}
-            aria-label="Переключить режим"
+            aria-label={isScientific ? "Обычный режим" : "Научный режим"}
+            type="button"
           >
             {isScientific ? (
-              // Иконка «обычный калькулятор»
+              // Иконка обычного калькулятора
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
                    stroke="currentColor" strokeWidth="1.8"
                    strokeLinecap="round" strokeLinejoin="round">
@@ -67,22 +72,23 @@ export function TopBar({ onOpenHistory }: Props) {
                 <path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M16 15h0" />
               </svg>
             ) : (
-              // Иконка «научный»
+              // Иконка научного — с символом √
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
                    stroke="currentColor" strokeWidth="1.8"
                    strokeLinecap="round" strokeLinejoin="round">
                 <rect x="4" y="3" width="16" height="18" rx="3" />
-                <path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M16 15h0" />
-                <path d="M4 3l3 3" />
+                <path d="M8 15l2-4 2 6 3-8" />
               </svg>
             )}
           </button>
         )}
 
+        {/* Переключение конвертера */}
         <button
           className={styles.iconBtn}
           onClick={() => navigate(isConverter ? "/" : "/converter")}
-          aria-label="Конвертер"
+          aria-label={isConverter ? "Выйти из конвертера" : "Конвертер"}
+          type="button"
         >
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
                stroke="currentColor" strokeWidth="1.8"

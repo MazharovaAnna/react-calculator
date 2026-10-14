@@ -20,7 +20,12 @@ export function HistoryPanel({ open, onClose }: Props) {
     <div className={styles.panel}>
       <div className={styles.header}>
         <span className={styles.title}>История</span>
-        <button className={styles.closeBtn} onClick={onClose} aria-label="Закрыть">
+        <button
+          className={styles.closeBtn}
+          onClick={onClose}
+          aria-label="Закрыть"
+          type="button"
+        >
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none"
                stroke="currentColor" strokeWidth="2"
                strokeLinecap="round" strokeLinejoin="round">
@@ -46,7 +51,7 @@ export function HistoryPanel({ open, onClose }: Props) {
         </ul>
       )}
 
-      <button className={styles.clearBtn} onClick={clearHistory}>
+      <button className={styles.clearBtn} onClick={clearHistory} type="button">
         Очистить историю
       </button>
     </div>
