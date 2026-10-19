@@ -2,6 +2,13 @@
 @use "reset";
 @use "themes";
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Это убьет скролл всего браузера */
+}
+
 body {
   min-height: 100vh;
   min-height: 100dvh;

@@ -3,22 +3,24 @@
 .keypad {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  
+  /* Звездный час: auto-rows позволяет сетке сжиматься */
+  grid-auto-rows: minmax(40px, 1fr); 
+  
+  /* Отступы тоже динамические */
+  gap: clamp(6px, 1.5vh, 12px); 
+  
   width: 100%;
+  max-width: 340px;
+  height: 100%; /* Сетка занимает всю доступную высоту */
 }
 
-// Модификатор для инженерного режима — плотнее
 .keypad--scientific {
-  gap: 8px;
-}
-
-// Модификатор для конвертера — крупнее
-.keypad--converter {
-  gap: 12px;
+  gap: clamp(4px, 1vh, 8px);
+  max-width: 320px;
+  grid-auto-rows: minmax(36px, 1fr); /* В научном кнопки чуть меньше по минимуму */
 }
 
 @include mobile {
-  .keypad {
-    gap: 8px;
-  }
+  .keypad { max-width: 100%; }
 }

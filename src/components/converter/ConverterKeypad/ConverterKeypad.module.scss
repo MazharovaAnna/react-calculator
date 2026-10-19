@@ -3,12 +3,15 @@
 .keypad {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 10px;
   width: 100%;
+  max-width: 340px; /* Кнопки конвертера не будут больше этого */
+  margin: 0 auto;
 }
 
 @include mobile {
   .keypad {
-    gap: 10px;
+    gap: 8px;
+    max-width: 100%;
   }
 }

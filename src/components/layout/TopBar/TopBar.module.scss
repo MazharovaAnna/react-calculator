@@ -7,11 +7,24 @@
   padding: 8px 4px 0;
   margin-bottom: 8px;
   flex-shrink: 0;
+  flex-wrap: nowrap; /* Запрещаем перенос */
+  gap: 8px;
 }
 
 .right {
   display: flex;
-  gap: 8px;
+  gap: 4px; /* Чуть уменьшили отступ между иконками */
+}
+
+/* На мобильных делаем иконки чуть меньше */
+@include mobile {
+  .iconBtn {
+    padding: 4px;
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
 
 .iconBtn {

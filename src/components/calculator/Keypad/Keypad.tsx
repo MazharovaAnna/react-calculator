@@ -5,10 +5,17 @@ import styles from "./Keypad.module.scss";
 type Props = {
   keys: KeyDef[];
   className?: string;
+  scientific?: boolean;
 };
 
-export function Keypad({ keys, className }: Props) {
-  const rootClass = [styles.keypad, className].filter(Boolean).join(" ");
+export function Keypad({ keys, className, scientific = false }: Props) {
+  const rootClass = [
+    styles.keypad,
+    scientific && styles["keypad--scientific"],
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={rootClass}>
