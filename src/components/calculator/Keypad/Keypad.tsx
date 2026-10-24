@@ -1,18 +1,18 @@
+import { memo } from "react";
 import { Button } from "@/components/ui/Button";
 import type { KeyDef } from "@/types";
 import styles from "./Keypad.module.scss";
 
 type Props = {
   keys: KeyDef[];
-  className?: string;
   scientific?: boolean;
 };
 
-export function Keypad({ keys, className, scientific = false }: Props) {
+
+export const Keypad = memo(function Keypad({ keys, scientific = false }: Props) {
   const rootClass = [
     styles.keypad,
     scientific && styles["keypad--scientific"],
-    className,
   ]
     .filter(Boolean)
     .join(" ");
@@ -34,4 +34,4 @@ export function Keypad({ keys, className, scientific = false }: Props) {
       ))}
     </div>
   );
-}
+});
