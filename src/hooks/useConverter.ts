@@ -1,10 +1,51 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CATEGORIES, getCategory, convert} from "@/lib/units";
 
+const STORAGE_KEY = "calculator_converter";
+
+type SavedState = {
+  categoryId: string;
+  fromUnitId: string;
+  toUnitId: string;
+};
+
+// Безопасная загрузка: проверяем, что данные валидны
+function loadSavedState(): SavedState | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    
+    const parsed = JSON.parse(raw) as SavedState;
+    
+    // Проверяем, что категория существует
+    const category = getCategory(parsed.categoryId);
+    if (!category) return null;
+
+    // Проверяем, что единицы существуют в этой категории
+    const fromExists = category.units.some((u) => u.id === parsed.fromUnitId);
+    const toExists = category.units.some((u) => u.id === parsed.toUnitId);
+    
+    if (!fromExists || !toExists) return null;
+
+    return parsed;
+  } catch {
+    return null; // Если JSON битый или localStorage недоступен
+  }
+}
+
 export function useConverter() {
-  const [categoryId, setCategoryIdState] = useState<string>(CATEGORIES[0].id);
-  const [fromUnitId, setFromUnitId] = useState<string>("");
-  const [toUnitId, setToUnitId] = useState<string>("");
+  // Загружаем сохраненное состояние один раз при старте
+  const [initial] = useState(loadSavedState);
+
+  const [categoryId, setCategoryIdState] = useState<string>(
+    initial?.categoryId ?? CATEGORIES[0].id
+  );
+  const [fromUnitId, setFromUnitId] = useState<string>(
+    initial?.fromUnitId ?? ""
+  );
+  const [toUnitId, setToUnitId] = useState<string>(
+    initial?.toUnitId ?? ""
+  );
   const [input, setInput] = useState<string>("0");
 
   // Находим текущую категорию
@@ -19,6 +60,21 @@ export function useConverter() {
   // Синхронизация: если единица пустая — берём дефолт
   const actualFromUnit = fromUnitId || defaultFromUnit;
   const actualToUnit = toUnitId || defaultToUnit;
+
+  // Сохраняем в localStorage при изменении
+  useEffect(() => {
+    const stateToSave: SavedState = {
+      categoryId,
+      fromUnitId: actualFromUnit,
+      toUnitId: actualToUnit,
+    };
+    
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
+    } catch {
+      // Игнорируем ошибки (например, режим инкогнито)
+    }
+  }, [categoryId, actualFromUnit, actualToUnit]);
 
   // Значение для конвертации
   const numericValue = useMemo(() => {
