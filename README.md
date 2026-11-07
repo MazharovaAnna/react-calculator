@@ -1,75 +1,43 @@
-# React + TypeScript + Vite
+# Calculator App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Современное веб-приложение «Калькулятор» и «Конвертер единиц», вдохновленное лаконичным интерфейсом Android-калькулятора.
 
-Currently, two official plugins are available:
+## 🚀 Демо
+[Посмотреть живую версию]()
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Особенности
 
-## React Compiler
+- **Обычный калькулятор:** базовые операции, проценты, поддержка вложенных скобок.
+- **Инженерный режим:** тригонометрические функции (`sin`, `cos`, `tan`), логарифмы (`ln`, `log`), корни, степени (`x²`, `xʸ`), факториал и константы (`π`, `e`).
+- **Переключение DEG / RAD:** корректная работа тригонометрических функций в градусах и радианах.
+- **Конвертер единиц:** 7 категорий (Длина, Масса, Площадь, Объём, Время, Скорость, Температура) с поддержкой нелинейной конвертации (температура).
+- **История вычислений:** сохраняется в `localStorage`, можно подставить результат из истории одним кликом.
+- **Светлая и темная темы:** с автоматическим определением системных настроек и сохранением выбора.
+- **Ввод с физической клавиатуры:** поддержка хоткеев для всех цифр и операций (включая `Enter` для расчета).
+- **Визуальная обратная связь:** анимация свечения (glow) при нажатии кнопок и всплывающие подсказки (tooltips).
+- 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠 Стек технологий
 
-## Expanding the ESLint configuration
+- **React 19** (Hooks, Context API, `memo`, `useMemo`)
+- **TypeScript** (строгая типизация, интерфейсы)
+- **Vite** (быстрая сборка)
+- **SCSS Modules** (изолированные стили, CSS-переменные для тем)
+- **React Router DOM** (навигация между режимами)
+- **Vitest** (юнит-тесты)
+- **ESLint + Prettier** (качество кода)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Установка и запуск
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Убедитесь, что у вас установлен Node.js (версия 18 или выше).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# 1. Клонируйте репозиторий
+git clone https://github.com/your-username/calculator-app.git
+cd calculator-app
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 2. Установите зависимости
+npm install
 
-```
-
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+# 3. Запустите локальный сервер
+npm run dev
