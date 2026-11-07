@@ -3,12 +3,8 @@
 .btn {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;      /* Идеальный квадрат */
-  max-width: 67px;          /* Потолок размера, чтобы не распирало сетку */
-  max-height: 67px;         /* Потолок по высоте */
-  margin: 0 auto;           /* Центрируется в ячейке сетки */
-  border-radius: 26%;       /* Скругление (squircle) */
-  
+  height: 100%;             /* Заполняет ячейку */
+  border-radius: 26%;       
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,139 +16,35 @@
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  transition:
-    background-color 0.15s ease,
-    color 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: background-color 0.15s ease, color 0.25s ease, box-shadow 0.25s ease;
 
-  /* Свечение — снаружи, за кнопкой */
   @include glow($glow-base);
 
-  &:hover:not(.btn--disabled) {
-    background: var(--bg-btn-hover);
-  }
-
-  &:focus-visible {
-    outline: 2px solid $accent-equals;
-    outline-offset: 2px;
-  }
+  &:hover:not(.btn--disabled) { background: var(--bg-btn-hover); }
+  &:focus-visible { outline: 2px solid $accent-equals; outline-offset: 2px; }
 }
 
-.btn__label {
-  position: relative;
-  z-index: 1;
-  line-height: 1;
-  pointer-events: none;
-}
+.btn__label { position: relative; z-index: 1; line-height: 1; pointer-events: none; }
 
-/* =========================================
-   Модификаторы формы
-   ========================================= */
-
-/* Круглые кнопки (для конвертера) */
-.btn--round {
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-}
-
-/* Овальные кнопки (если когда-нибудь понадобятся) */
-.btn--pill {
-  border-radius: 40px;
-  aspect-ratio: auto;
-  height: 48px;
-}
-
-/* =========================================
-   Варианты и цвета
-   ========================================= */
-
-.btn--number,
-.btn--operator,
-.btn--function {
-  @include glow($glow-base);
-}
-
-.btn--danger {
-  color: $accent-danger;
-  @include glow($glow-danger);
-}
-
+/* Модификаторы */
+.btn--danger { color: $accent-danger; @include glow($glow-danger); }
 .btn--equals {
-  background: $accent-equals;
-  color: #ffffff;
-  font-weight: 500;
-  font-size: 32px;
+  background: $accent-equals; color: #ffffff; font-weight: 500; font-size: 32px;
   @include glow($glow-equals);
-
-  &:hover:not(.btn--disabled) {
-    background: $accent-equals-hover;
-  }
-
-  &:active:not(.btn--disabled) {
-    background: $accent-equals-active;
-  }
+  &:hover:not(.btn--disabled) { background: $accent-equals-hover; }
 }
+.btn--accent { background: $accent-orange; color: #ffffff; @include glow($glow-accent); }
+.btn--toggle { @include glow($glow-toggle); font-size: 16px; }
+.btn--disabled { opacity: 0.4; pointer-events: none; }
+.btn--operator { font-size: 32px; font-weight: 300; }
+.btn--function { font-size: 18px; }
 
-.btn--accent {
-  background: $accent-orange;
-  color: #ffffff;
-  font-weight: 500;
-  @include glow($glow-accent);
-
-  &:hover:not(.btn--disabled) {
-    background: $accent-orange-hover;
-  }
-}
-
-.btn--toggle {
-  @include glow($glow-toggle);
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0;
-}
-
-/* =========================================
-   Состояния
-   ========================================= */
-
-.btn--disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-/* =========================================
-   Размеры шрифта по вариантам
-   ========================================= */
-
-.btn--operator {
-  font-size: 32px;
-  font-weight: 300;
-}
-
-.btn--function {
-  font-size: 18px;
-  font-weight: 400;
-}
-
-/* =========================================
-   Адаптив
-   ========================================= */
+/* Конвертер (круглые) */
+.btn--round { border-radius: 50%; }
 
 @include mobile {
-  .btn {
-    max-width: 60px;
-    max-height: 60px;
-    font-size: 20px;
-        
-  }
-  .btn--operator {
-    font-size: 24px;
-  }
-  .btn--function {
-    font-size: 14px;
-  }
-  .btn--equals {
-    font-size: 24px;
-  }
+  .btn { font-size: 20px; }
+  .btn--operator { font-size: 24px; }
+  .btn--function { font-size: 14px; }
+  .btn--equals { font-size: 24px; }
 }

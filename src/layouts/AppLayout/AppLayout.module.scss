@@ -2,15 +2,14 @@
 
 .layout {
   width: 100%;
-  max-width: 400px;
-  height: 100dvh;
-  max-height: 850px;
+  max-width: 480px; /* Ширина телефона */
+  height: 100dvh;   /* Важно: динамическая высота, учитывает адресную строку */
+  max-height: 900px;
   margin: 0 auto;
-  position: relative;
   display: flex;
   flex-direction: column;
   background: var(--bg);
-  overflow: hidden;
+  overflow: hidden; /* Запрещаем скролл всей страницы */
   
   @media (min-width: 500px) {
     border-radius: 24px;
@@ -24,6 +23,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 0;
-  overflow: hidden;
+  min-height: 0; /* Разрешаем детям скроллиться */
+  overflow: hidden; 
 }
